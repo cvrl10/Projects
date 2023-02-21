@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tic-Tac-Toe</title>
+        <link rel="stylesheet" href="css/index.css"/>
+        <script type="text/javascript" src="js/index.js"></script>
+    </head>
+    <body id="body" onload="setHeight()" onunload="alert('Bye')">
+        <div class="left">
+            <select id="select" onchange="select()">
+                <option value="img/o.png">o</option>
+                <option value="img/x.png">x</option>
+            </select>
+        </div>
+        <div class="container">
+            <div id="grid" class="grid">
+                <div id="00" class="00 line-1 bottom" onclick="check(id)" onmouseover="over(id)" onmouseout="out(id)" onclick="check(id)" ondblclick="uncheck(id)"></div>
+                <div id="01" class="01 line-2-3 bottom" onclick="check(id)" onmouseover="over(id)" onmouseout="out(id)" onclick="check(id)" ondblclick="uncheck(id)"></div>
+                <div id="02" class="02 line-4 bottom" onclick="check(id)" onmouseover="over(id)" onmouseout="out(id)" onclick="check(id)" ondblclick="uncheck(id)"></div>
+
+                <div id="10" class="10 line-1 bottom top" onclick="check(id)" onmouseover="over(id)" onmouseout="out(id)" onclick="check(id)" ondblclick="uncheck(id)"></div>
+                <div id="11" class="11 line-2-3 bottom top" onclick="check(id)" onmouseover="over(id)" onmouseout="out(id)" onclick="check(id)" ondblclick="uncheck(id)"></div>
+                <div id="12" class="12 line-4 bottom top" onclick="check(id)" onmouseover="over(id)" onmouseout="out(id)" onclick="check(id)" ondblclick="uncheck(id)"></div>
+
+                <div id="20" class="20 line-1 top" onclick="check(id)" onmouseover="over(id)" onmouseout="out(id)" onclick="check(id)" ondblclick="uncheck(id)"></div>
+                <div id="21" class="21 line-2-3 top" onclick="check(id)" onmouseover="over(id)" onmouseout="out(id)" onclick="check(id)" ondblclick="uncheck(id)"></div>
+                <div id="22" class="22 line-4 top" onclick="check(id)" onmouseover="over(id)" onmouseout="out(id)" onclick="check(id)" ondblclick="uncheck(id)"></div>
+            </div>
+        </div>
+        <!--00-->
+
+    </body>
+</html>

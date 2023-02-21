@@ -1,0 +1,55 @@
+.container
+{
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+}
+.grid
+{
+    grid-column: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.line-1
+{
+    border-right-style: solid;
+    border-right-width: 2.5px;
+    border-right-color: black; 
+}
+.line-2-3
+{
+    border-left-style: solid;
+    border-left-width: 2.5px;
+    border-left-color: black;
+
+    border-right-style: solid;
+    border-right-width: 2.5px;
+    border-right-color: black; 
+}
+.line-4
+{
+    border-left-style: solid;
+    border-left-width: 2.5px;
+    border-left-color: black;  
+}
+.bottom
+{
+    border-bottom-style: solid;
+    border-bottom-width: 2.5px;
+    border-bottom-color: black;
+}
+.top
+{
+    border-top-style: solid;
+    border-top-width: 2.5px;
+    border-top-color: black;
+}
+div.grid
+{
+    padding: 0px;
+    margin: 0px;
+    cursor: pointer;
+}
+select
+{
+    visibility: hidden;
+}
