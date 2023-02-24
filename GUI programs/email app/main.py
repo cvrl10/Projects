@@ -9,3 +9,9 @@ with SMTP_SSL('smtp.gmail.com', port=465, context=context) as smtp:
     smtp.login(email, password)
     smtp.sendmail('cvrlix@gmail.com', 'carlarch10@gmail.com', 'Hello Carl from Python')
 '''
+
+from application import App
+
+app = App()
+app.run()
+
