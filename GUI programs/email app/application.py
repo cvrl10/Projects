@@ -9,7 +9,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 email = 'cvrlix@gmail.com'
-password = 'widfvyygdblbvsyp'
+password = ''
 
 '''
 with SMTP_SSL('smtp.gmail.com', port=465, context=context) as smtp:
