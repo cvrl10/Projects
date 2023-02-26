@@ -1,0 +1,13 @@
+Please specify email/password Saturday, Feb 25 2023 19:44
+Please specify email/password Saturday, Feb 25 2023 19:44
+(535, b'5.7.8 Username and Password not accepted. Learn more at\n5.7.8  https://support.google.com/mail/?p=BadCredentials k8-20020a05620a142800b0073ba211e765sm2227095qkj.19 - gsmtp') Saturday, Feb 25 2023 20:54
+(535, b'5.7.8 Username and Password not accepted. Learn more at\n5.7.8  https://support.google.com/mail/?p=BadCredentials w1-20020a05620a0e8100b0073b7568d998sm2216778qkm.2 - gsmtp') Saturday, Feb 25 2023 20:56
+(535, b'5.7.8 Username and Password not accepted. Learn more at\n5.7.8  https://support.google.com/mail/?p=BadCredentials k8-20020a05620a142800b0073ba211e765sm2229773qkj.19 - gsmtp') Saturday, Feb 25 2023 20:57
+(535, b'5.7.8 Username and Password not accepted. Learn more at\n5.7.8  https://support.google.com/mail/?p=BadCredentials c2-20020ac84e02000000b003bd21323c80sm2252008qtw.11 - gsmtp') Saturday, Feb 25 2023 21:04
+(535, b'5.7.8 Username and Password not accepted. Learn more at\n5.7.8  https://support.google.com/mail/?p=BadCredentials i14-20020ac8764e000000b003b86b962030sm2206265qtr.72 - gsmtp') Saturday, Feb 25 2023 21:06
+(535, b'5.7.8 Username and Password not accepted. Learn more at\n5.7.8  https://support.google.com/mail/?p=BadCredentials d184-20020a37b4c1000000b0073b69922cfesm2182012qkf.85 - gsmtp') Saturday, Feb 25 2023 21:07
+(535, b'5.7.8 Username and Password not accepted. Learn more at\n5.7.8  https://support.google.com/mail/?p=BadCredentials 186-20020a370ac3000000b0073b878e3f30sm2212372qkk.59 - gsmtp') Saturday, Feb 25 2023 21:09
+(535, b'5.7.8 Username and Password not accepted. Learn more at\n5.7.8  https://support.google.com/mail/?p=BadCredentials g22-20020ac842d6000000b003bd0f0b26b0sm2200807qtm.77 - gsmtp') Saturday, Feb 25 2023 21:10
+(535, b'5.7.8 Username and Password not accepted. Learn more at\n5.7.8  https://support.google.com/mail/?p=BadCredentials p9-20020a05620a056900b007423caef02fsm2171680qkp.122 - gsmtp') Saturday, Feb 25 2023 21:13
+(535, b'5.7.8 Username and Password not accepted. Learn more at\n5.7.8  https://support.google.com/mail/?p=BadCredentials o134-20020a37418c000000b007429ee9482dsm180045qka.134 - gsmtp') Saturday, Feb 25 2023 21:13
+Please specify email/password Sunday, Feb 26 2023 12:20
