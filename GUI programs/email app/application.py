@@ -14,13 +14,14 @@ TIMEOUT = 6
 
 
 class Email:
+    """represents an email object, with members for attachments, body and address"""
     def __init__(self, receiver, recipient=(), subject=''):
         self.msg = MIMEMultipart()
         self.msg['To'] = receiver
         self.msg['Subject'] = subject
 
-
     def body(self, text='', html=''):
+        """called add a body to the email, can be plain text (html not yet functional)"""
         if text:
             self.msg.attach(MIMEText(text, 'plain'))
         if html:
@@ -28,9 +29,11 @@ class Email:
 
     @property
     def address(self):
+        """the address to send the email"""
         return self.msg['To']
 
     def attach(self, path):
+        """method for adding attachments to the email"""
         with open(path, 'rb') as file:
             attachment = MIMEBase('application', 'octet-stream')
             attachment.set_payload(file.read())
@@ -45,25 +48,29 @@ class Email:
 
 class Application:
     def __init__(self, user=(), login=None):
+        """used to instantiate the Application object after login in, user is a tuple with email and password
+        if login is not None, it can be called with the user info to return to the login screen"""
         self.user, self.password = user
         self.window = Tk()
         self.window.title('New Message')
         self.window.geometry('600x600')
 
-        self.files = []
+        self.files = []  # list of files path to attach
 
+        # creating menu bar
         self.menubar = Menu(self.window)
         self.file = Menu(self.menubar, tearoff=0)
+        self.help = Menu(self.menubar, tearoff=0)
 
         def getfiles():
             file = filedialog.askopenfilename()
             if file:
                 self.files.append(file)
 
-        def close():
+        def close():  # only the first New Message window can return login screen when closed
             if login:
                 self.window.destroy()
-                login(*user)
+                login(*user)  # used to return to the login in screen with user information
             else:
                 self.window.destroy()
 
@@ -74,7 +81,10 @@ class Application:
         self.file.add_separator()
         self.file.add_command(label='Exit', command=lambda: self.window.destroy())
 
+        self.help.add_command(label='Log', command=openlog)
+
         self.menubar.add_cascade(label='File', menu=self.file)
+        self.menubar.add_cascade(label='Help', menu=self.help)
 
         self.window.config(menu=self.menubar)
 
@@ -114,6 +124,7 @@ class Application:
         self.window.mainloop()
 
     def send(self):
+        """used to email to all recipients in the recipient Entry widget"""
         for recipient in self.recipients.get().split(','):
             subject, text = self.subject.get(), self.body.get('1.0', END)
             mail = Email(receiver=recipient, subject=subject)
@@ -129,10 +140,21 @@ class Application:
 
 class Login:
     def __init__(self, user=None, password=None):
+        """this window is to log in into the application, if user's email is not formatted to be sent over
+        third party server, you'll be presented with text in warning box:
+        (534, b'5.7.9 Please log in with your web browser and then try again. Learn more at\n5.7.9
+         https://support.google.com/mail/?p=WebLoginRequired bs17-20020a05620a471100b00706b09b16fasm4046391qkb.11 - gsmtp')"""
         app = Tk()
-        app.title('emale')
+        app.title('em@le')
         app.geometry('450x450')
         app.resizable('False', 'False')
+
+        menubar = Menu(app)
+        help = Menu(menubar, tearoff=0)
+        help.add_command(label='Log', command=openlog)
+
+        menubar.add_cascade(label='Help', menu=help)
+        app.config(menu=menubar)
 
         app.columnconfigure(0, weight=1)
         app.columnconfigure(1, weight=1)
@@ -141,13 +163,13 @@ class Login:
         app.rowconfigure(1, weight=1)
         app.rowconfigure(2, weight=1)
 
-        def rmvplchldr(event):
+        def rmvplchldr(event):  # remove place holder
             if event.widget.get() == 'email':
                 event.widget.delete(0, 'end')
             elif event.widget.get() == 'password':
                 event.widget.delete(0, 'end')
 
-        def onleave(event):
+        def onleave(event):  # used to add the place holder string if the entry boxes contains an empty string
             widget = event.widget
             if widget.get() == '' and widget.name == 'email':
                 widget.insert(0, 'email')
@@ -160,36 +182,18 @@ class Login:
 
         def close():
             if email.get() == 'email':
-                frame.grid(row=0, column=0, columnspan=3, sticky='nsew', padx=20, pady=20)
-                frame.columnconfigure(0, weight=1)
-                frame.rowconfigure(0, weight=1)
-                frame.rowconfigure(1, weight=1)
-                message.grid(row=0, sticky='nsew', padx=30, pady=(30, 0))
-                var.set('Please specify email/password')
-                Log().write(var.get())
-                ok.grid(row=1, sticky='e', padx=30)
-
-                def okclick():
-                    try:
-                        ok.invoke()
-                    except:
-                        pass
-
-                thread = Timer(TIMEOUT, function=okclick)
-                thread.start()
+                self.warning('Please specify email/password', TIMEOUT)
                 return
 
-            user = (email.get(), passwrd.get())
-            print(*user)
-            if self.connect(*user):
-                #ok.invoke()
+            usr = (email.get(), passwrd.get())
+            if self.connect(*usr):  # if users account info is accurate application is run with Login object, so that we can return to it.
                 app.destroy()
-                Application(user, login=Login).run()
+                Application(usr, login=Login).run()
 
-        frame = Frame(app, bg='#F8F3D6')
-        var = StringVar()
-        message = Message(frame, bg='#F8F3D6', textvariable=var, justify=LEFT, anchor='nw', aspect=700)
-        ok = Button(frame, text='OK', bg='blue', fg='white', command=frame.grid_forget)
+        self.frame = Frame(app, bg='#F8F3D6')
+        self.var = StringVar()
+        self.message = Message(self.frame, bg='#F8F3D6', textvariable=self.var, justify=LEFT, anchor='nw', aspect=700)
+        self.ok = Button(self.frame, text='OK', bg='blue', fg='white', command=self.frame.grid_forget)
 
         email = Entry(app, textvariable=StringVar())
         email.insert(0, user if user else 'email')
@@ -206,7 +210,7 @@ class Login:
         passwrd.bind('<Leave>', onleave)
         passwrd.bind('<Return>', lambda event: close())
 
-        def onclick():
+        def onclick():  # used to hide and show the email Entry widget
             if button.cget('text') == 'SHOW':
                 passwrd.config(show='')
                 button.config(text='HIDE', fg='red', highlightbackground='red')
@@ -227,15 +231,38 @@ class Login:
         app.mainloop()
 
     def connect(self, email, password):
-          context = create_default_context()
-          with SMTP_SSL('smtp.gmail.com', port=465, context=context) as smtp:
-              try:
-                  return smtp.login(email, password)
-              except Exception as exception:
-                  Log().write(str(exception))
+        """used to test if user is allowed to log into system"""
+        try:
+            context = create_default_context()
+            with SMTP_SSL('smtp.gmail.com', port=465, context=context) as smtp:
+                return smtp.login(email, password)
+        except Exception as exception:
+            self.warning(str(exception), 20)
+            Log().write(str(exception))
+
+    def warning(self, text, timeout):
+        """text to be added to warning frame of Login"""
+        self.frame.grid(row=0, column=0, columnspan=3, sticky='nsew', padx=20, pady=20)
+        self.frame.columnconfigure(0, weight=1)
+        self.frame.rowconfigure(0, weight=1)
+        self.frame.rowconfigure(1, weight=1)
+        self.message.grid(row=0, sticky='nsew', padx=30, pady=(30, 0))
+        self.var.set(text)
+        Log().write(self.var.get())
+        self.ok.grid(row=1, sticky='e', padx=30)
+
+        def okclick():
+            try:
+                self.ok.invoke()
+            except:
+                pass
+        if timeout:
+            thread = Timer(timeout, function=okclick)
+            thread.start()
 
 
 class App:
+    """This class is the interface to the application"""
     def __init__(self):
         pass
 
